@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8502933633429823262}
   - component: {fileID: 7901890001145770577}
   - component: {fileID: 8762903277400035480}
-  - component: {fileID: -2900329661132862681}
+  - component: {fileID: 563949766}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: BULLET
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   speed: 1000
---- !u!96 &-2900329661132862681
+--- !u!96 &563949766
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -126,8 +126,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.1308403
+        time: 0.0064086914
+        value: 0.22897148
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -135,8 +135,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.18803419
-        value: 0.29439253
+        time: 0.15170941
+        value: 0.40654206
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -144,8 +144,8 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.43162394
-        value: 0.11682243
+        time: 0.4102538
+        value: 0.26167655
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -153,17 +153,8 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.80128205
-        value: 0.028037382
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.98717946
-        value: 0.018691588
+        time: 0.99358976
+        value: -0.004672897
         inSlope: 0
         outSlope: 0
         tangentMode: 0

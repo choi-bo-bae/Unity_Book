@@ -300,7 +300,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -315,98 +315,38 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - pelvis
+    - pelvis/stomach
+    - pelvis/stomach/Ribs
+    - pelvis/stomach/Ribs/chest
+    - pelvis/stomach/Ribs/chest/neck
+    - pelvis/stomach/Ribs/chest/neck/head
+    - pelvis/stomach/Ribs/chest/neck/head/Hat_Target
+    - pelvis/stomach/Ribs/chest/Lshoulder
+    - pelvis/stomach/Ribs/chest/Lshoulder/Larm
+    - pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm
+    - pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist
+    - pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist/Lthumb
+    - pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist/Lfingers
+    - pelvis/stomach/Ribs/chest/Rshoulder
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rfingers
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rthumb
+    - pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rweaponholder
+    - pelvis/Lthigh
+    - pelvis/Lthigh/Lcalf
+    - pelvis/Lthigh/Lcalf/Lfoot
+    - pelvis/Rthigh
+    - pelvis/Rthigh/Rcalf
+    - pelvis/Rthigh/Rcalf/Rfoot
+    - slade_mesh
+    - slade_meshLod1
+    - slade_meshLod2
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 270
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: pelvis
-        weight: 1
-      - path: pelvis/Lthigh
-        weight: 1
-      - path: pelvis/Lthigh/Lcalf
-        weight: 1
-      - path: pelvis/Lthigh/Lcalf/Lfoot
-        weight: 1
-      - path: pelvis/Rthigh
-        weight: 1
-      - path: pelvis/Rthigh/Rcalf
-        weight: 1
-      - path: pelvis/Rthigh/Rcalf/Rfoot
-        weight: 1
-      - path: pelvis/stomach
-        weight: 1
-      - path: pelvis/stomach/Ribs
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder/Larm
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist/Lfingers
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Lshoulder/Larm/Lforearm/Lwrist/Lthumb
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/neck
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/neck/head
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/neck/head/Hat_Target
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rfingers
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rthumb
-        weight: 1
-      - path: pelvis/stomach/Ribs/chest/Rshoulder/Rarm/Rforearm/Rwrist/Rweaponholder
-        weight: 1
-      - path: slade_mesh
-        weight: 1
-      - path: slade_meshLod1
-        weight: 1
-      - path: slade_meshLod2
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []

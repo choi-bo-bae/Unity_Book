@@ -14,8 +14,12 @@ public class MoveAgent : MonoBehaviour
 
     private readonly float traceSpeed = 4.0f;
 
+    private float damping = 1.0f;
+
 
     private NavMeshAgent agent;
+
+    private Transform enemyTr;
 
     private bool _patrolling;
 
@@ -28,6 +32,7 @@ public class MoveAgent : MonoBehaviour
             if(_patrolling)
             {
                 agent.speed = patrolSpeed;
+                damping = 1.0f;
                 MoveWayPoint();
             }
 
@@ -43,17 +48,27 @@ public class MoveAgent : MonoBehaviour
         {
             _traceTarget = value;
             agent.speed = traceSpeed;
+            damping = 7.0f;
             TraceTarget(_traceTarget);
         }
+    }
+
+    public float speed
+    {
+        get { return agent.velocity.magnitude; }
     }
 
    
     // Start is called before the first frame update
     void Start()
     {
+        enemyTr = GetComponent<Transform>();
+
         agent = GetComponent<NavMeshAgent>();
 
         agent.autoBraking = false;
+
+        agent.updateRotation = false;
 
         agent.speed = patrolSpeed;
         
@@ -103,6 +118,13 @@ public class MoveAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(agent.isStopped == false)
+        {
+            Quaternion rot = Quaternion.LookRotation(agent.desiredVelocity);
+
+            enemyTr.rotation = Quaternion.Slerp(enemyTr.rotation, rot, Time.deltaTime * damping);
+        }
+
         if (!_patrolling) return;
 
         if(agent.velocity.sqrMagnitude >= 0.2f * 0.2f 

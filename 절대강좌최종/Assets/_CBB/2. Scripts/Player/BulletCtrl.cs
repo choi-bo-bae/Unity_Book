@@ -8,6 +8,40 @@ public class BulletCtrl : MonoBehaviour
 
     public float speed = 1000.0f;
 
+    private Transform tr;
+
+    private Rigidbody rb;
+
+    private TrailRenderer trail;
+
+    void Awake()
+    {
+        tr = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
+        trail = GetComponent<TrailRenderer>();
+
+        damage = GameManager.instance.gameData.damage;
+    }
+
+    void OnEnable()
+    {
+        rb.AddForce(transform.forward * speed);
+        GameManager.OnItemChange += UpdateSetup;
+    }
+
+    void UpdateSetup()
+    {
+        damage = GameManager.instance.gameData.damage;
+    }
+
+    void OnDisable()
+    {
+        trail.Clear();
+        tr.position = Vector3.zero;
+        tr.rotation = Quaternion.identity;
+        rb.Sleep();
+    }
+
 
     // Start is called before the first frame update
     void Start()

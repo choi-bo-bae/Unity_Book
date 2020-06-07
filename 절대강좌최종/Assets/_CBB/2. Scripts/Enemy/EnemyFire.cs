@@ -39,6 +39,12 @@ public class EnemyFire : MonoBehaviour
 
     public AudioClip reloadSfx;
 
+    public GameObject Bullet;
+
+    public Transform firePos;
+
+    public MeshRenderer muzzleFlash;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +54,8 @@ public class EnemyFire : MonoBehaviour
         audio = GetComponent<AudioSource>();
 
         wsReload = new WaitForSeconds(reloadTime);
+
+        muzzleFlash.enabled = false;
     }
 
     // Update is called once per frame
@@ -73,6 +81,12 @@ public class EnemyFire : MonoBehaviour
         animator.SetTrigger(hashFire);
         audio.PlayOneShot(fireSfx, 1.0f);
 
+        StartCoroutine(ShowMuzzleFlash());
+
+        GameObject _bullet = Instantiate(Bullet, firePos.position, firePos.rotation);
+
+        Destroy(_bullet, 3.0f);
+
         isReload = (--currBullet % maxBullet == 0);
 
         if(isReload)
@@ -81,8 +95,30 @@ public class EnemyFire : MonoBehaviour
         }
     }
 
+    IEnumerator ShowMuzzleFlash()
+    {
+        muzzleFlash.enabled = true;
+
+        Quaternion rot = Quaternion.Euler(Vector3.forward * Random.Range(0, 360));
+
+        muzzleFlash.transform.localRotation = rot;
+
+        muzzleFlash.transform.localScale = Vector3.one * Random.Range(1.0f, 2.0f);
+
+
+        Vector2 offset = new Vector2(Random.Range(0, 2), Random.Range(0, 2)) * 0.5f;
+
+        muzzleFlash.material.SetTextureOffset("_MainTex", offset);
+
+        yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+
+        muzzleFlash.enabled = false;
+    }
+
     IEnumerator Reloading()
     {
+        muzzleFlash.enabled = false;
+
         animator.SetTrigger(hashReload);
 
         audio.PlayOneShot(reloadSfx, 1.0f);

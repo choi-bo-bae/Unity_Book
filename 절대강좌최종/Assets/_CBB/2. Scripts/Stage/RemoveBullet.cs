@@ -14,7 +14,9 @@ public class RemoveBullet : MonoBehaviour
         {
             ShowEffect(coll);
 
-            Destroy(coll.gameObject);
+            //Destroy(coll.gameObject);
+
+            coll.gameObject.SetActive(false);
         }
     }
 

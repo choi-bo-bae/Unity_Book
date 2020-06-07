@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,17 +33,32 @@ public class EnemyAI : MonoBehaviour
 
     private EnemyFire enemyFire;
 
+    private EnemyFOV enemyFOV;
+
     private readonly int hashMove = Animator.StringToHash("IsMove");
 
     private readonly int hashSpeed = Animator.StringToHash("Speed");
+
+    private readonly int hashHit = Animator.StringToHash("Hit");
+
+    private readonly int hashDie = Animator.StringToHash("Die");
+
+    private readonly int hashDieIdx = Animator.StringToHash("DieIdx");
+
+    private readonly int hashOffset = Animator.StringToHash("Offset");
+
+    private readonly int hashWalkSpeed = Animator.StringToHash("WalkSpeed");
+
+    private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
 
     void Awake()
     {
         var player = GameObject.FindGameObjectWithTag("PLAYER");
 
-        if(player != null)
+        if (player != null)
         {
             playerTr = player.GetComponent<Transform>();
+        }
 
             enemyTr = GetComponent<Transform>();
 
@@ -53,8 +68,14 @@ public class EnemyAI : MonoBehaviour
 
             enemyFire = GetComponent<EnemyFire>();
 
+            enemyFOV = GetComponent<EnemyFOV>();
+
             ws = new WaitForSeconds(0.3f);
-        }
+
+            animator.SetFloat(hashOffset, Random.Range(0.0f, 1.0f));
+
+            animator.SetFloat(hashWalkSpeed, Random.Range(1.0f, 1.2f));
+        
     }
 
     void OnEnable()
@@ -62,11 +83,20 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(CheckState());
 
         StartCoroutine(Action());
+
+        Damage.OnPlayerDie += this.OnPlayerDie;
     }
 
-    
+    void OnDisable()
+    {
+        Damage.OnPlayerDie -= this.OnPlayerDie;
+    }
+
+
     IEnumerator CheckState()
     {
+        yield return new WaitForSeconds(1.0f);
+
         while(!isDie)
         {
             if (state == State.DIE) yield break;
@@ -75,9 +105,13 @@ public class EnemyAI : MonoBehaviour
 
             if(dist <= attackDist)
             {
-                state = State.ATTACK;
+                if (enemyFOV.isViewPlayer())
+                    state = State.ATTACK;
+                else
+                    state = State.TRACE;
             }
-            else if(dist <= traceDist)
+            //else if(dist <= traceDist)
+            else if(enemyFOV.isTracePlayer())
             {
                 state = State.TRACE;
             }
@@ -104,18 +138,31 @@ public class EnemyAI : MonoBehaviour
                     moveAgent.patrolling = true;
                     animator.SetBool(hashMove, true);
                     break;
+
                 case State.TRACE:
                     enemyFire.isFire = false;
                     moveAgent.traceTarget = playerTr.position;
                     animator.SetBool(hashMove, true);
                     break;
+
                 case State.ATTACK:
-                    enemyFire.isFire = true;
-                    moveAgent.stop();
+                    //enemyFire.isFire = true;
+                    moveAgent.Stop();
                     animator.SetBool(hashMove, false);
+                    if(enemyFire.isFire == false)
+                    {
+                        enemyFire.isFire = true;
+                    }
                     break;
+
                 case State.DIE:
-                    moveAgent.stop();
+                    this.gameObject.tag = "Untagged";
+                    isDie = true;
+                    enemyFire.isFire = false;
+                    moveAgent.Stop();
+                    animator.SetInteger(hashDieIdx, Random.Range(0, 3));
+                    animator.SetTrigger(hashDie);
+                    GetComponent<CapsuleCollider>().enabled = false;
                     break;
 
             }
@@ -126,6 +173,17 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         animator.SetFloat(hashSpeed, moveAgent.speed);
+    }
+
+    public void OnPlayerDie()
+    {
+        moveAgent.Stop();
+
+        enemyFire.isFire = false;
+
+        StopAllCoroutines();
+
+        animator.SetTrigger(hashPlayerDie);
     }
 
 }

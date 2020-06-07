@@ -27,10 +27,12 @@ public class BarrelCtrl : MonoBehaviour
 
     public AudioClip expSfx;
 
+    public Shake shake;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
 
         meshFilter = GetComponent<MeshFilter>();
 
@@ -38,10 +40,22 @@ public class BarrelCtrl : MonoBehaviour
 
         _audio = GetComponent<AudioSource>();
 
+        //shake = GameObject.Find("CameraRig").GetComponent<Shake>();
+        StartCoroutine(GetShake());
+
         _renderer.material.mainTexture = textures[Random.Range(0, textures.Length)];
     }
 
-    private void OnCollisionEnter(Collision coll)
+    IEnumerator GetShake()
+    {
+        while(!UnityEngine.SceneManagement.SceneManager.GetSceneByName("Play").isLoaded)
+        {
+            yield return null;
+        }
+        shake = GameObject.Find("CameraRig").GetComponent<Shake>();
+    }
+
+    void OnCollisionEnter(Collision coll)
     {
         if(coll.collider.CompareTag("BULLET"))
         {
@@ -52,7 +66,7 @@ public class BarrelCtrl : MonoBehaviour
         }
     }
 
-    private void ExpBarrel()
+    void ExpBarrel()
     {
         GameObject effect = Instantiate(expEffect, transform.position, Quaternion.identity);
 
@@ -73,11 +87,13 @@ public class BarrelCtrl : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = meshes[idx];
 
         _audio.PlayOneShot(expSfx, 1.0f);
+
+        StartCoroutine(shake.ShakeCamera(0.1f, 0.2f, 0.5f));
     }
 
     private void IndirectDamage(Vector3 pos)
     {
-        Collider[] colls = Physics.OverlapSphere(pos, expRadius, 1 << 11);
+        Collider[] colls = Physics.OverlapSphere(pos, expRadius, 1 << 8);
 
         foreach(var coll in colls)
         {
